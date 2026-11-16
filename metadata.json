@@ -1,0 +1,6 @@
+{
+  "name": "KKTC Kamu Yeterlik Sınav Simülatörü",
+  "description": "KKTC Kamuya Giriş Yeterlilik Sınavı için Kamu Görevlileri Yasası (7/1979) ve KKTC Anayasası tabanlı, optik cevap kağıtlı gerçek sınav simülasyonu ve çalışma platformu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
