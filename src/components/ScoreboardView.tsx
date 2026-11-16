@@ -78,7 +78,52 @@ export function ScoreboardView({
           </button>
         </div>
 
-        <div className="mt-4 overflow-x-auto">
+        {/* Mobile Card Leaderboard */}
+        <div className="mt-4 space-y-2.5 sm:hidden">
+          {summaries.map((row, idx) => (
+            <div
+              key={row.nickname}
+              className="rounded border border-[#E7E2D4] bg-[#F7F4EC]/50 p-3.5"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#19345E] tabular-nums">
+                    {idx === 0 ? (
+                      <span className="inline-flex items-center gap-1 text-[#A66A14]">
+                        <Award className="h-4 w-4" /> #1
+                      </span>
+                    ) : (
+                      `#${idx + 1}`
+                    )}
+                  </span>
+                  <span className="truncate font-semibold text-sm text-[#171A21]">
+                    {row.nickname}
+                  </span>
+                </div>
+                <span className="shrink-0 font-mono text-base font-bold text-[#19345E] tabular-nums">
+                  {row.bestScore} Puan
+                </span>
+              </div>
+              <div className="mt-2 grid grid-cols-3 gap-2 border-t border-[#E7E2D4] pt-2 text-center font-mono text-[11px] tabular-nums">
+                <div>
+                  <span className="block text-[#4E5563]">Ortalama</span>
+                  <span className="font-semibold text-[#171A21]">{row.averageScore}</span>
+                </div>
+                <div>
+                  <span className="block text-[#4E5563]">Sınav</span>
+                  <span className="font-semibold text-[#171A21]">{row.attemptCount}</span>
+                </div>
+                <div>
+                  <span className="block text-[#4E5563]">Doğruluk</span>
+                  <span className="font-semibold text-[#1E6B43]">%{row.accuracyRate}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / Tablet Table Leaderboard */}
+        <div className="mt-4 hidden overflow-x-auto sm:block">
           <table className="w-full min-w-[600px] text-left text-sm">
             <thead>
               <tr className="border-b border-[#D5CFC0] font-mono text-[11px] uppercase text-[#4E5563]">

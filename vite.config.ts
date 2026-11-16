@@ -13,19 +13,49 @@ function resolveBasePath(command: 'build' | 'serve'): string {
   if (process.env.GITHUB_ACTIONS === 'true' && ghRepo) {
     return ghRepo.endsWith('.github.io') ? '/' : `/${ghRepo}/`;
   }
-  // Use relative base for generic static builds (e.g. manual GitHub Pages / subpath hosting)
   return command === 'build' ? './' : '/';
+}
+
+function resolveCanonicalSiteUrl(): string | null {
+  if (process.env.VITE_SITE_URL) {
+    return process.env.VITE_SITE_URL.endsWith('/')
+      ? process.env.VITE_SITE_URL
+      : `${process.env.VITE_SITE_URL}/`;
+  }
+  const fullRepo = process.env.GITHUB_REPOSITORY;
+  if (process.env.GITHUB_ACTIONS === 'true' && fullRepo && fullRepo.includes('/')) {
+    const [owner, repo] = fullRepo.split('/');
+    if (repo.endsWith('.github.io')) {
+      return `https://${owner}.github.io/`;
+    }
+    return `https://${owner}.github.io/${repo}/`;
+  }
+  return null;
 }
 
 export default defineConfig(({command}) => {
   const base = resolveBasePath(command);
   const pwaBase = base === './' ? './' : base;
+  const canonicalUrl = resolveCanonicalSiteUrl();
 
   return {
     base,
     plugins: [
       react(),
       tailwindcss(),
+      // Resolves og:url, og:image and twitter:image to absolute HTTPS URLs during GitHub Actions builds
+      {
+        name: 'resolve-social-og-urls',
+        transformIndexHtml(html: string): string {
+          if (!canonicalUrl) return html;
+          return html
+            .replace(
+              '<meta property="og:url" content="./" />',
+              `<meta property="og:url" content="${canonicalUrl}" />`,
+            )
+            .replaceAll('content="./og-image.png"', `content="${canonicalUrl}og-image.png"`);
+        },
+      },
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: false,
@@ -35,6 +65,7 @@ export default defineConfig(({command}) => {
           'pwa-192x192.png',
           'pwa-512x512.png',
           'pwa-maskable-512x512.png',
+          'og-image.png',
         ],
         manifest: {
           id: pwaBase,
@@ -75,6 +106,7 @@ export default defineConfig(({command}) => {
           skipWaiting: true,
           clientsClaim: true,
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,pdf}'],
+          globIgnores: ['**/og-image.png'],
           maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
           navigateFallback: 'index.html',
           navigateFallbackDenylist: [/\.pdf$/i],

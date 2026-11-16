@@ -1,4 +1,4 @@
-import { BookOpen, Download, FileText, Search } from 'lucide-react';
+import { BookOpen, Download, ExternalLink, FileText, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { ALL_QUESTIONS } from '../data/questions';
 import type { LawType } from '../types/exam';
@@ -102,18 +102,27 @@ export function LegislationViewer() {
                       setActivePdf(doc.id);
                       setShowEmbeddedPdf(true);
                     }}
-                    className="inline-flex min-h-9 items-center gap-1.5 rounded bg-[#19345E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#122645] cursor-pointer"
+                    className="inline-flex min-h-10 items-center gap-1.5 rounded bg-[#19345E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#122645] cursor-pointer"
                   >
                     <BookOpen className="h-3.5 w-3.5" />
                     <span>Sayfada Görüntüle</span>
                   </button>
                   <a
                     href={doc.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-10 items-center gap-1.5 rounded border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#171A21] hover:border-[#19345E]"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    <span>Tam Ekran Aç</span>
+                  </a>
+                  <a
+                    href={doc.path}
                     download={doc.filename}
-                    className="inline-flex min-h-9 items-center gap-1.5 rounded border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#171A21] hover:border-[#19345E]"
+                    className="inline-flex min-h-10 items-center gap-1.5 rounded border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#171A21] hover:border-[#19345E]"
                   >
                     <Download className="h-3.5 w-3.5" />
-                    <span>PDF İndir</span>
+                    <span>İndir</span>
                   </a>
                 </div>
               </div>
@@ -136,7 +145,7 @@ export function LegislationViewer() {
             <iframe
               src={currentPdf.path}
               title={currentPdf.title}
-              className="h-[520px] w-full rounded border border-[#D5CFC0] bg-white"
+              className="h-[420px] w-full rounded border border-[#D5CFC0] bg-white sm:h-[520px]"
             />
           </div>
         )}
@@ -180,7 +189,7 @@ export function LegislationViewer() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Madde no, konu veya kavram ara (örn: adaylık, 24 saat, üçlü kararname, disiplin)..."
-            className="min-h-11 w-full rounded-md border border-[#D5CFC0] bg-[#F7F4EC]/50 pl-10 pr-3.5 py-2 text-sm text-[#171A21] placeholder:text-[#7E8594] focus:border-[#19345E] focus:bg-white focus:outline-none"
+            className="min-h-11 w-full rounded-md border border-[#D5CFC0] bg-[#F7F4EC]/50 pl-10 pr-3.5 py-2 text-base text-[#171A21] placeholder:text-[#7E8594] focus:border-[#19345E] focus:bg-white focus:outline-none sm:text-sm"
           />
         </div>
 

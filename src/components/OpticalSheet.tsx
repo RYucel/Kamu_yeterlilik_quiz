@@ -76,8 +76,8 @@ export function OpticalSheet({
       </div>
 
       {/* Optical Bubbles Grid */}
-      <div className="max-h-[420px] overflow-y-auto px-3 py-2.5">
-        <div className="space-y-1">
+      <div className="max-h-[54dvh] overflow-y-auto px-3 py-2.5 lg:max-h-[420px]">
+        <div className="space-y-1.5 sm:space-y-1">
           {questions.map((q, idx) => {
             const selected = answers[q.id];
             const isCurrent = idx === currentIndex;
@@ -87,7 +87,7 @@ export function OpticalSheet({
             return (
               <div
                 key={q.id}
-                className={`flex items-center justify-between rounded px-2 py-1 transition-colors ${
+                className={`flex items-center justify-between rounded px-2 py-1.5 transition-colors sm:py-1 ${
                   isCurrent
                     ? 'bg-[#19345E]/10 ring-1 ring-[#19345E]/35'
                     : idx % 2 === 0
@@ -98,7 +98,7 @@ export function OpticalSheet({
                 <button
                   type="button"
                   onClick={() => onJumpToQuestion(idx)}
-                  className="flex min-h-8 min-w-[46px] items-center gap-1 text-left font-mono text-xs font-semibold text-[#171A21] cursor-pointer tabular-nums"
+                  className="flex min-h-9 min-w-[46px] items-center gap-1 text-left font-mono text-xs font-semibold text-[#171A21] cursor-pointer tabular-nums sm:min-h-8"
                   title={`${idx + 1}. soruya git`}
                 >
                   <span className="w-5 text-right">{idx + 1}.</span>
@@ -110,7 +110,7 @@ export function OpticalSheet({
                   )}
                 </button>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2 sm:gap-1.5">
                   {OPTION_LETTERS.map((letter, optIdx) => {
                     const isFilled = selected === optIdx;
                     let bubbleClass =
@@ -139,7 +139,7 @@ export function OpticalSheet({
                         }}
                         aria-label={`Soru ${idx + 1} Seçenek ${letter}`}
                         aria-pressed={isFilled}
-                        className={`flex h-7 w-7 items-center justify-center rounded-full border font-mono text-[11px] font-bold transition-colors ${
+                        className={`flex h-9 w-9 items-center justify-center rounded-full border font-mono text-xs font-bold transition-colors sm:h-7 sm:w-7 sm:text-[11px] ${
                           isStudyChecked ? 'cursor-default' : 'cursor-pointer'
                         } ${bubbleClass}`}
                       >

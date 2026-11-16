@@ -13,13 +13,23 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: contain;
   }
 
   body {
     margin: 0;
-    min-height: 100vh;
+    min-height: 100dvh;
     background-color: #F7F4EC;
     color: #171A21;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a,
+  select,
+  input {
+    touch-action: manipulation;
   }
 }
 
@@ -29,4 +39,12 @@
 
 .exam-paper-shadow {
   box-shadow: 0 1px 2px rgba(23, 26, 33, 0.05), 0 6px 20px rgba(25, 52, 94, 0.04);
+}
+
+.safe-pt {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-pb {
+  padding-bottom: env(safe-area-inset-bottom);
 }

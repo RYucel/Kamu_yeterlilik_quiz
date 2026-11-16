@@ -332,7 +332,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] text-[#171A21]">
+    <div className="min-h-[100dvh] overflow-x-hidden bg-[#F7F4EC] text-[#171A21]">
       <OfflineIndicator />
       <TopNav
         activeView={view}
@@ -343,7 +343,7 @@ export default function App() {
         }}
       />
 
-      <main className="pb-12">
+      <main className={view === 'session' ? 'pb-6' : 'pb-24 md:pb-12'}>
         {view === 'entry' && (
           <ExamEntry
             initialNickname={nickname}

@@ -106,7 +106,7 @@ export function ExamEntry({
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-8">
+    <div className="mx-auto max-w-4xl px-3.5 py-4 sm:px-6 sm:py-8">
       {/* Resume banner if active unfinished exam exists */}
       {savedActiveSession && (
         <div className="mb-6 rounded-md border border-[#A66A14] bg-white p-4 exam-paper-shadow">
@@ -230,7 +230,7 @@ export function ExamEntry({
                   if (nicknameError) setNicknameError('');
                 }}
                 placeholder="Örn: Lefkosa_Aday2025"
-                className="min-h-11 w-full rounded-md border border-[#D5CFC0] bg-white pl-10 pr-3.5 py-2 text-sm font-medium text-[#171A21] placeholder:text-[#7E8594] focus:border-[#19345E] focus:outline-none"
+                className="min-h-11 w-full rounded-md border border-[#D5CFC0] bg-white pl-10 pr-3.5 py-2 text-base font-medium text-[#171A21] placeholder:text-[#7E8594] focus:border-[#19345E] focus:outline-none sm:text-sm"
               />
             </div>
 
@@ -334,7 +334,7 @@ export function ExamEntry({
                   : 'Süre sınırı uygulanmaz'}
               </span>
             </div>
-            <div className="mt-2 grid grid-cols-3 gap-3">
+            <div className="mt-2 grid grid-cols-3 gap-2 sm:gap-3">
               {QUESTION_COUNTS.map((cnt) => {
                 const mins = getSuggestedMinutes(cnt);
                 const selected = questionCount === cnt;
@@ -343,19 +343,21 @@ export function ExamEntry({
                     key={cnt}
                     type="button"
                     onClick={() => setQuestionCount(cnt)}
-                    className={`flex min-h-14 flex-col items-center justify-center rounded-md border px-3 py-2.5 transition-colors cursor-pointer ${
+                    className={`flex min-h-14 flex-col items-center justify-center rounded-md border px-2 py-2.5 transition-colors cursor-pointer sm:px-3 ${
                       selected
                         ? 'border-[#19345E] bg-[#19345E] text-white'
                         : 'border-[#D5CFC0] bg-white text-[#171A21] hover:border-[#19345E] hover:bg-[#F7F4EC]'
                     }`}
                   >
-                    <span className="font-mono text-lg font-bold tabular-nums">{cnt} Soru</span>
+                    <span className="font-mono text-base font-bold tabular-nums sm:text-lg">
+                      {cnt} Soru
+                    </span>
                     <span
-                      className={`mt-0.5 font-mono text-[11px] tabular-nums ${
+                      className={`mt-0.5 font-mono text-[10px] tabular-nums sm:text-[11px] ${
                         selected ? 'text-white/85' : 'text-[#4E5563]'
                       }`}
                     >
-                      {mins} dk · {Math.round((100 / cnt) * 10) / 10} puan/soru
+                      {mins} dk · {Math.round((100 / cnt) * 10) / 10} p
                     </span>
                   </button>
                 );
@@ -429,7 +431,7 @@ export function ExamEntry({
               <button
                 type="button"
                 onClick={onResetQuestionCycle}
-                className="inline-flex min-h-9 shrink-0 items-center justify-center gap-1.5 rounded border border-[#D5CFC0] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#19345E] transition-colors hover:border-[#19345E] cursor-pointer"
+                className="inline-flex min-h-9 w-full shrink-0 items-center justify-center gap-1.5 rounded border border-[#D5CFC0] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#19345E] transition-colors hover:border-[#19345E] cursor-pointer sm:w-auto"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 <span>Soru Döngüsünü Sıfırla</span>
@@ -449,7 +451,7 @@ export function ExamEntry({
 
             <button
               type="submit"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#19345E] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#122645] cursor-pointer"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-[#19345E] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#122645] cursor-pointer sm:w-auto"
             >
               <span>Sınav Kitapçığını Aç ve Başlat</span>
               <ArrowRight className="h-4 w-4" />

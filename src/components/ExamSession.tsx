@@ -62,18 +62,20 @@ export function ExamSession({
   const isLowTime = session.mode === 'simulation' && session.remainingSeconds <= 120;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-5 sm:px-6">
+    <div className="mx-auto max-w-6xl px-3.5 py-4 pb-24 sm:px-6 sm:py-5 lg:pb-5">
       {/* Top Exam Status Strip */}
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-md border border-[#D5CFC0] bg-white px-4 py-3 exam-paper-shadow">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <div>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2.5 rounded-md border border-[#D5CFC0] bg-white px-3.5 py-2.5 exam-paper-shadow sm:mb-5 sm:gap-3 sm:px-4 sm:py-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 sm:gap-x-4">
+          <div className="min-w-0">
             <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#4E5563]">
               Aday
             </span>
-            <span className="text-sm font-semibold text-[#171A21]">{session.nickname}</span>
+            <span className="block max-w-[120px] truncate text-xs font-semibold text-[#171A21] sm:max-w-none sm:text-sm">
+              {session.nickname}
+            </span>
           </div>
-          <div className="h-7 w-px bg-[#E7E2D4] hidden sm:block" />
-          <div>
+          <div className="hidden h-7 w-px bg-[#E7E2D4] sm:block" />
+          <div className="hidden sm:block">
             <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#4E5563]">
               Uygulama Modu
             </span>
@@ -81,27 +83,27 @@ export function ExamSession({
               {isStudyMode ? 'Çalışma Modu (Açıklamalı)' : 'Gerçek Sınav Simülasyonu'}
             </span>
           </div>
-          <div className="h-7 w-px bg-[#E7E2D4] hidden sm:block" />
+          <div className="h-6 w-px bg-[#E7E2D4]" />
           <div>
             <span className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-[#4E5563]">
-              Soru İlerlemesi
+              Soru
             </span>
             <span className="font-mono text-xs font-semibold text-[#171A21] tabular-nums">
-              {safeIndex + 1} / {questions.length} ({answeredCount} İşaretli)
+              {safeIndex + 1}/{questions.length} · {answeredCount} Dolu
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {session.mode === 'simulation' && (
             <div
-              className={`inline-flex min-h-10 items-center gap-1.5 rounded border px-3 py-1.5 font-mono text-sm font-bold tabular-nums ${
+              className={`inline-flex min-h-10 items-center gap-1 rounded border px-2.5 py-1.5 font-mono text-xs font-bold tabular-nums sm:gap-1.5 sm:px-3 sm:text-sm ${
                 isLowTime
                   ? 'border-[#9A2230] bg-[#9A2230]/10 text-[#9A2230]'
                   : 'border-[#D5CFC0] bg-[#F7F4EC] text-[#171A21]'
               }`}
             >
-              <Clock className="h-4 w-4 shrink-0" />
+              <Clock className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
               <span>{formatDurationTurkish(session.remainingSeconds)}</span>
             </div>
           )}
@@ -110,7 +112,7 @@ export function ExamSession({
           <button
             type="button"
             onClick={() => setShowMobileOptical(true)}
-            className="inline-flex min-h-10 items-center gap-1.5 rounded-md border border-[#9A2230] bg-[#9A2230]/8 px-3 py-1.5 text-xs font-semibold text-[#9A2230] lg:hidden cursor-pointer"
+            className="inline-flex min-h-10 items-center gap-1 rounded-md border border-[#9A2230] bg-[#9A2230]/8 px-2.5 py-1.5 text-xs font-semibold text-[#9A2230] lg:hidden cursor-pointer sm:px-3"
           >
             <Grid className="h-4 w-4" />
             <span className="tabular-nums">
@@ -121,7 +123,7 @@ export function ExamSession({
           <button
             type="button"
             onClick={() => setShowAbandonModal(true)}
-            className="inline-flex min-h-10 items-center rounded-md border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-medium text-[#4E5563] hover:bg-[#F7F4EC] hover:text-[#171A21] cursor-pointer"
+            className="inline-flex min-h-10 items-center rounded-md border border-[#D5CFC0] bg-white px-2.5 py-1.5 text-xs font-medium text-[#4E5563] hover:bg-[#F7F4EC] hover:text-[#171A21] cursor-pointer sm:px-3"
           >
             Çıkış
           </button>
@@ -134,8 +136,8 @@ export function ExamSession({
         <div className="lg:col-span-8">
           <article className="rounded-md border border-[#D5CFC0] bg-white exam-paper-shadow">
             {/* Booklet Question Header */}
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E7E2D4] bg-[#F7F4EC]/60 px-5 py-3.5 sm:px-7">
-              <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#E7E2D4] bg-[#F7F4EC]/60 px-4 py-3 sm:px-7 sm:py-3.5">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <span className="font-mono text-sm font-bold text-[#19345E] tabular-nums">
                   SORU {safeIndex + 1}
                 </span>
@@ -143,7 +145,7 @@ export function ExamSession({
                 <span className="font-mono text-xs font-semibold text-[#4E5563]">
                   {currentQuestion.citation.lawShort}
                 </span>
-                <span className="text-[#D5CFC0]">·</span>
+                <span className="hidden text-[#D5CFC0] sm:inline">·</span>
                 <span className="text-xs font-medium text-[#4E5563]">{currentQuestion.topic}</span>
               </div>
 
@@ -158,13 +160,13 @@ export function ExamSession({
                 }`}
               >
                 <Flag className={`h-3.5 w-3.5 ${isFlagged ? 'fill-[#A66A14]' : ''}`} />
-                <span>{isFlagged ? 'İşaretlendi' : 'Soruyu İşaretle'}</span>
+                <span>{isFlagged ? 'İşaretlendi' : 'İşaretle'}</span>
               </button>
             </div>
 
             {/* Question Stem */}
-            <div className="px-5 py-6 sm:px-7">
-              <p className="font-serif text-[18px] font-medium leading-[1.65] text-[#171A21] sm:text-[19px]">
+            <div className="px-4 py-5 sm:px-7 sm:py-6">
+              <p className="font-serif text-[16px] font-medium leading-[1.65] text-[#171A21] sm:text-[19px]">
                 {currentQuestion.stem}
               </p>
 
@@ -307,14 +309,14 @@ export function ExamSession({
               )}
             </div>
 
-            {/* Booklet Navigation Footer */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#E7E2D4] bg-[#F7F4EC]/50 px-5 py-3.5 sm:px-7">
-              <div className="flex items-center gap-2">
+            {/* Booklet Navigation Footer (Sticky thumb bar on mobile, card footer on desktop) */}
+            <div className="fixed bottom-0 inset-x-0 z-30 flex items-center justify-between gap-2 border-t border-[#D5CFC0] bg-white/95 px-3.5 py-2.5 backdrop-blur-sm safe-pb lg:static lg:z-auto lg:border-t lg:border-[#E7E2D4] lg:bg-[#F7F4EC]/50 lg:px-7 lg:py-3.5">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   disabled={safeIndex === 0}
                   onClick={() => onChangeIndex(safeIndex - 1)}
-                  className="inline-flex min-h-10 items-center gap-1 rounded-md border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#171A21] disabled:cursor-not-allowed disabled:opacity-45 hover:bg-[#F7F4EC] cursor-pointer"
+                  className="inline-flex min-h-11 items-center gap-1 rounded-md border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#171A21] disabled:cursor-not-allowed disabled:opacity-45 hover:bg-[#F7F4EC] cursor-pointer lg:min-h-10"
                 >
                   <ChevronLeft className="h-4 w-4" />
                   <span>Önceki</span>
@@ -324,10 +326,11 @@ export function ExamSession({
                   type="button"
                   disabled={selectedIndex === null || isCheckedInStudy}
                   onClick={() => onSelectAnswer(currentQuestion.id, null)}
-                  className="inline-flex min-h-10 items-center gap-1 rounded-md border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#4E5563] disabled:cursor-not-allowed disabled:opacity-45 hover:text-[#171A21] cursor-pointer"
+                  className="inline-flex min-h-11 items-center gap-1 rounded-md border border-[#D5CFC0] bg-white px-3 py-1.5 text-xs font-semibold text-[#4E5563] disabled:cursor-not-allowed disabled:opacity-45 hover:text-[#171A21] cursor-pointer lg:min-h-10"
                 >
                   <Eraser className="h-3.5 w-3.5" />
-                  <span>Boş Bırak</span>
+                  <span className="hidden xs:inline sm:inline">Boş Bırak</span>
+                  <span className="xs:hidden sm:hidden">Temizle</span>
                 </button>
               </div>
 
@@ -335,7 +338,7 @@ export function ExamSession({
                 <button
                   type="button"
                   onClick={() => onChangeIndex(safeIndex + 1)}
-                  className="inline-flex min-h-10 items-center gap-1 rounded-md bg-[#19345E] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#122645] cursor-pointer"
+                  className="inline-flex min-h-11 items-center gap-1 rounded-md bg-[#19345E] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#122645] cursor-pointer lg:min-h-10"
                 >
                   <span>Sonraki Soru</span>
                   <ChevronRight className="h-4 w-4" />
@@ -344,7 +347,7 @@ export function ExamSession({
                 <button
                   type="button"
                   onClick={() => setShowFinishModal(true)}
-                  className="inline-flex min-h-10 items-center gap-1.5 rounded-md bg-[#1E6B43] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#175334] cursor-pointer"
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-md bg-[#1E6B43] px-4 py-1.5 text-xs font-semibold text-white hover:bg-[#175334] cursor-pointer lg:min-h-10"
                 >
                   <CheckCircle2 className="h-4 w-4" />
                   <span>Sınavı Tamamla</span>
@@ -374,24 +377,24 @@ export function ExamSession({
       {/* Mobile Optical Drawer */}
       {showMobileOptical && (
         <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 p-3 lg:hidden"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 p-2 sm:p-4 lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobil Optik Cevap Kağıdı"
         >
-          <div className="w-full max-w-md rounded-md bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#E7E2D4] px-4 py-2.5">
+          <div className="w-full max-w-md rounded-t-xl rounded-b-md bg-white shadow-2xl safe-pb">
+            <div className="flex items-center justify-between border-b border-[#E7E2D4] px-4 py-3">
               <span className="font-mono text-xs font-bold text-[#9A2230]">OPTİK CEVAP KAĞIDI</span>
               <button
                 type="button"
                 onClick={() => setShowMobileOptical(false)}
-                className="flex h-9 w-9 items-center justify-center rounded border border-[#D5CFC0] text-[#4E5563]"
+                className="flex h-10 w-10 items-center justify-center rounded border border-[#D5CFC0] text-[#4E5563]"
                 aria-label="Kapat"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <div className="p-2">
+            <div className="p-2.5">
               <OpticalSheet
                 nickname={session.nickname}
                 mode={session.mode}
